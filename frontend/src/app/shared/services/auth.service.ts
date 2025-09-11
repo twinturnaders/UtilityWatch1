@@ -1,14 +1,16 @@
 // src/app/core/services/auth.service.ts
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { map, Observable } from 'rxjs';
 import { TokenService } from './token.service';
+import {Router} from '@angular/router';
 
 export interface LoginRequest { email: string; password: string; }
 export interface RegisterRequest { email: string; password: string; zipCode: string; displayName?: string; }
 export interface AuthResponse { token: string; userId: number; email: string; displayName?: string; roles?: string[]; }
 const KEY = 'auth_token';
+
 @Injectable({ providedIn: 'root' })
 
 
@@ -45,6 +47,7 @@ export class AuthService {
       return false;
     }
   }
+  
 
 
   private base = `${environment.apiUrl}/api/auth`;

@@ -1,4 +1,26 @@
-<app-home-button></app-home-button>
+
+<mat-card class="uw-card mat-elevation-z4">
+  <mat-card-header class="uw-card__header">
+    <div mat-card-avatar class="uw-card__avatar" aria-hidden="true">
+
+      <svg viewBox="0 0 24 24" width="20" height="20" focusable="false">
+        <path d="M12 2c-3.5 4.7-7 8.1-7 12.2A7 7 0 0 0 12 21a7 7 0 0 0 7-6.8C19 10.1 15.5 6.7 12 2z"
+              fill="currentColor"/>
+      </svg>
+    </div>
+
+    <mat-card-title class="uw-card__title">Compare Rates From Neighboring Communities</mat-card-title>
+    <mat-card-subtitle class="uw-card__subtitle">
+      How do your utility costs compare to people in neighboring cities and towns?
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content class="uw-card__content">
+    <p class="uw-card__lead">
+    Fill out the form to find out! Hint: For more meaningful results, update the "Gallons of Water Used" to reflect your most recent month's usage.
+    </p>
+  </mat-card-content>
+</mat-card>
 <div class="search-container">
   <form class="search-form" (ngSubmit)="onSearch()" [formGroup]="searchForm" aria-label="Municipality search form">
     <div class="field">
@@ -62,7 +84,18 @@
 
       </tr>
       </tbody>
-    </table>
 
+    </table>
+    <section class="confidence">
+      <h2>Understanding the Confidence Rating</h2>
+      <p>Each municipality is given a <strong>confidence rating</strong> from 1 to 5 stars:</p>
+      <ul class="star-explanation">
+        <li><strong class = "star">★</strong>– Based on state-level (DNRC) or outdated data    </li>
+        <li>  <strong class = "star">★★</strong>  – Inferred or partial public info</li>
+        <li><strong class = "star">★★★</strong>  – One user-submitted bill</li>
+        <li><strong class = "star">★★★★</strong> – Two or more consistent submissions</li>
+        <li><strong class = "star">★★★★★</strong> – Verified by admin with ordinance or full review</li>
+      </ul>
+    </section>
   </div>
 </div>

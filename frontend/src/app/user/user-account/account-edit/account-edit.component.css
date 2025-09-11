@@ -1,4 +1,4 @@
-.card { background: #c6d2cd; border:1px solid #afb0c5; border-radius: .75rem; padding:1rem; }
+.card { font-family: Calibri, cursive; background: #c6d2cd; border:1px solid #afb0c5; border-radius: .75rem; padding:1rem; }
 .card-title { margin:0 0 1rem; font-size:1.25rem; }
 
 .grid { display:grid; grid-template-columns: 1fr 1fr; gap:1rem; }

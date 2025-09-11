@@ -1,5 +1,12 @@
 
 
+<app-site-header
+  [isAuthed]="auth?.isAuthenticated?.()"
+  (logout)="onLogout()">
+</app-site-header>
 
+<main id="main">
+  <router-outlet></router-outlet>
+</main>
 <router-outlet />
 <app-flash-banner></app-flash-banner>

@@ -1,4 +1,4 @@
-.auth-card { max-width: 440px; margin: 3rem auto; padding: 1.25rem; border:1px solid #e5e7eb; border-radius:.75rem; background: #ccd0d0; }
+.auth-card { box-shadow: 0 3px 8px rgb(43, 48, 43);font-family: Calibri, cursive; max-width: 440px; margin: 3rem auto; padding: 1.25rem; border:1px solid #e5e7eb; border-radius:.75rem; background: #ccd0d0; }
 .auth-card h1 { margin: 0 0 1rem; font-size: 1.5rem; }
 .form-field { display:flex; flex-direction:column; gap:.375rem; margin-bottom:.9rem; }
 label { font-weight:600; }

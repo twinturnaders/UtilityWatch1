@@ -1,4 +1,4 @@
-.shell { padding: 1rem; margin: 1rem; }
+.shell { font-family: Calibri, cursive; padding: 1rem; margin: 1rem; }
 .grid.two { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin: 1rem; }
 .field { display: flex; flex-direction: column; gap: .25rem;margin: 1rem}
 .field.checkbox { justify-content: end; }

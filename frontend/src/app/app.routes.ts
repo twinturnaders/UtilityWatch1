@@ -12,7 +12,7 @@ import { AdminApprovalComponent } from './admin/admin-approval/admin-approval.co
 
 import {AddBillComponent} from './user/user-account/add-bill/add-bill.component';
 import {CompareComponent} from './user/user-account/compare/compare.component';
-import {AboutComponent} from './user/user-account/about/about.component';
+import {AboutComponent} from './shared/about/about.component';
 import { LogoutComponent } from './user/user-account/logout/logout.component';
 import {LandingRedirectGuard} from './shared/guards/landing-redirect.guard';
 
@@ -47,6 +47,7 @@ export const routes: Routes = [
 
 
    { path: 'crowdsource_form', component: RateInputComponent },
+  {path: 'about', component: AboutComponent},
 
   {
     path: 'admin',

@@ -1,12 +1,31 @@
-<app-home-button></app-home-button>
-<section class="submit-rates">
-  <header class="header">
-    <h1>Submit Rates</h1>
-    <p class="muted">Share municipal water & sewer rate details to help the community.</p>
-  </header>
 
+<section class="submit-rates">
+  <mat-card class="uw-card mat-elevation-z4">
+    <mat-card-header class="uw-card__header">
+      <div mat-card-avatar class="uw-card__avatar" aria-hidden="true">
+
+        <svg viewBox="0 0 24 24" width="20" height="20" focusable="false">
+          <path d="M12 2c-3.5 4.7-7 8.1-7 12.2A7 7 0 0 0 12 21a7 7 0 0 0 7-6.8C19 10.1 15.5 6.7 12 2z"
+                fill="currentColor"/>
+        </svg>
+      </div>
+
+      <mat-card-title class="uw-card__title">Submit Rate Information</mat-card-title>
+      <mat-card-subtitle class="uw-card__subtitle">
+        Help the UtilityWatch community: submit water &amp; sewer rates.
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="uw-card__content">
+      <p class="uw-card__lead">
+        Entering just one set of rates could help a neighbor, a nearby town, or an entire region better understand their costs.
+      </p>
+    </mat-card-content>
+  </mat-card>
   <form class="card" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
     <div class="grid">
+
       <!-- Town selector -->
       <div class="field">
         <mat-checkbox
@@ -20,7 +39,7 @@
         <!-- Pick from list -->
         <ng-container *ngIf="!form.get('useOtherTown')?.value">
           <ng-container class="container" *ngIf="allTowns$ | async as towns">
-            <mat-form-field class="w-full">
+            <mat-form-field appearance="outline" class="w-full">
               <mat-label>Town</mat-label>
               <input
                 matInput
@@ -111,31 +130,33 @@
 
     <!-- WATER -->
     <section class="section">
-      <h2>Water</h2>
-      <div class="grid">
-        <div class="field" [formGroup]="form.controls.water">
-          <label for="waterBase">Water base charge</label>
-          <input id="waterBase" type="number" formControlName="base" inputmode="decimal" step="0.01" min="0" />
-          <small class="hint">If the water rate is fixed, no further information is required.</small>
-        </div>
-      </div>
+      <small style="margin-bottom: .5rem;  color: #1b1e1b">*If rates are calculated in different units than "Gallons", e.g. CCF, please list unit type in the Note Section at the bottom of this form.  </small>
+<h2 style="font-size: 3rem; --text-color: var(--ebony); ">Water</h2>
+
+
+
 
       <div class="tiers">
+
+          <div class="grid">
+          <div class="field" [formGroup]="form.controls.water">
+            <label for="waterBase">Water base charge</label>
+            <input id="waterBase" type="number" formControlName="base" inputmode="decimal" step="0.01" min="0" />
+            <small class="hint">If the water rate is fixed, no further information on water rate is required.</small>
+          </div> </div>
         <div class="tiers-head">
           <h3>Water rate by consumption</h3>
           <button type="button" class="btn" (click)="addWaterTier()">Add tier</button>
-          <small class="hint">
-            <strong>Example 1:</strong><br />
-            Tier 1: $2/KGal up to 10,000 gal<br />
+          <div class="hint" style="background:#fff; border:1px solid #e7ece8; border-radius:.5rem; padding:.75rem; margin-top:.5rem;">
+            <strong>Example</strong><br>
+            Tier 1: $2/KGal up to 10,000 gal<br>
             Tier 2: $3/KGal with no upper limit
-            <br /><br /><strong>Example 2:</strong><br />
-            $3/KGal (no upper limit; does not vary with increasing usage)
-          </small>
+          </div>
         </div>
 
         <div class="tier-row" *ngFor="let t of waterTiers.controls; let i = index" [formGroup]="t">
           <div class="field">
-            <label>Up to (units)</label>
+            <label>Up to Gallons</label>
             <input type="number" formControlName="upTo" inputmode="numeric" min="0" />
             <small class="hint">Leave blank for “no upper limit”.</small>
           </div>
@@ -161,31 +182,30 @@
 
     <!-- SEWER -->
     <section class="section">
-      <h2>Sewer</h2>
-      <div class="grid">
-        <div class="field" [formGroup]="form.controls.sewer">
-          <label for="sewerBase">Sewer base charge</label>
-          <input id="sewerBase" type="number" formControlName="base" inputmode="decimal" step="0.01" min="0" />
-          <small class="hint">If the sewer rate is fixed, no further information is required.</small>
-        </div>
-      </div>
+      <h2 style="font-size: 3rem; --text-color: var(--ebony); ">Sewer</h2>
+
 
       <div class="tiers">
+        <div class="grid">
+          <div class="field" [formGroup]="form.controls.sewer">
+            <label for="sewerBase">Sewer base charge</label>
+            <input id="sewerBase" type="number" formControlName="base" inputmode="decimal" step="0.01" min="0" />
+            <small class="hint">If the sewer rate is fixed, no further information on sewer rate is required.</small>
+          </div>
+        </div>
         <div class="tiers-head">
           <h3>Sewer rate by consumption</h3>
           <button type="button" class="btn" (click)="addSewerTier()">Add tier</button>
-          <small class="hint">
-            <strong>Example 1:</strong><br />
-            Tier 1: $2/KGal up to 10,000 gal<br />
+          <div class="hint" style="background:#fff; border:1px solid #e7ece8; border-radius:.5rem; padding:.75rem; margin-top:.5rem;">
+            <strong>Example</strong><br>
+            Tier 1: $2/KGal up to 10,000 gal<br>
             Tier 2: $3/KGal with no upper limit
-            <br /><br /><strong>Example 2:</strong><br />
-            $3/KGal (no upper limit; does not vary with increasing usage)
-          </small>
+          </div>
         </div>
 
         <div class="tier-row" *ngFor="let t of sewerTiers.controls; let i = index" [formGroup]="t">
           <div class="field">
-            <label>Up to (units)</label>
+            <label>Up to Gallons</label>
             <input type="number" formControlName="upTo" inputmode="numeric" min="0" />
             <small class="hint">Leave blank for “no upper limit”.</small>
           </div>
@@ -204,29 +224,28 @@
       </div>
     </section>
 
-    <!-- Notes -->
+
     <div class="field">
-      <label for="notes">Notes</label>
+      <label for="notes">Notes<small style="font-weight:normal;"> *Optional</small></label>
+
       <textarea
         id="notes"
         rows="3"
         formControlName="notes"
-        placeholder="Please enter any additional fees and/or notes on how these rates apply..."
+        placeholder="Please enter rate unit type, if not in Gallons, additional fees and/or notes on how these rates apply..."
       ></textarea>
     </div>
 
-    <!-- Messages -->
+
     <div class="messages" aria-live="polite">
       <p class="success" *ngIf="success">{{ success }}</p>
       <p class="error" *ngIf="error">{{ error }}</p>
     </div>
 
-    <!-- Actions -->
+
     <div class="actions">
-      <button class="btn primary" type="submit" [disabled]="submitting || form.invalid">
-        <span *ngIf="!submitting">Submit rates</span>
-        <span *ngIf="submitting">Submitting…</span>
-      </button>
+      <button class="btn primary" type="submit" [disabled]="submitting || form.invalid">Submit rates</button>
+
     </div>
   </form>
 

@@ -5,6 +5,7 @@ import {CommonModule, CurrencyPipe, NgForOf, NgIf} from '@angular/common';
 import {StarRatingComponent} from '../rating/rating.component';
 import {finalize} from 'rxjs/operators';
 import {HomeButtonComponent} from '../home-button/home-button.component';
+import {MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle} from '@angular/material/card';
 
 @Component({
   selector: 'app-search',
@@ -16,7 +17,12 @@ import {HomeButtonComponent} from '../home-button/home-button.component';
     ReactiveFormsModule,
     NgForOf,
     NgIf,
-    HomeButtonComponent
+    HomeButtonComponent,
+    MatCard,
+    MatCardContent,
+    MatCardHeader,
+    MatCardSubtitle,
+    MatCardTitle
   ],
   styleUrls: ['./search.component.css'],
   standalone: true,

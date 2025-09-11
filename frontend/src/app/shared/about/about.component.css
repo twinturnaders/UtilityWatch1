@@ -1,10 +1,16 @@
 .about-project {
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
   background: #ccd0d0;
   border-radius: 1rem;
   padding: 1.5rem 2rem;
-  margin-top: 2rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin: 1rem auto;
+  box-shadow: 0 3px 8px rgb(43, 48, 43);
   line-height: 1.6;
+  font-family: Calibri, cursive;
+  justify-content: center;
+  align-items: center;
 }
 
 .about-project header h2 {

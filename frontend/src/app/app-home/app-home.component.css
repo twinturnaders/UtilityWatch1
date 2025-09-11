@@ -7,25 +7,32 @@
 
   --text-color: var(--ebony);
   --bg-light: var(--platinum);
-  --font-size-base: 1.2rem;
-  --font-size-large: 1.6rem;
-}
+  --font-size-base: 2rem;
+  --font-size-large: 3rem;
+  --font-family-sans-serif: Calibri, cursive;
 
+}
+.logo {  color: var(--rosy-brown); }
+.wordmark { font-size: 2.5rem; color: #2b302b
+}
+.wordmark .accent { color: var(--rosy-brown); }
 .home-container {
+
   max-width: 900px;
-  margin: 0 auto;
+  margin: 1rem auto;
   padding: 2.5rem 1.5rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Calibri, cursive;
   color: var(--text-color);
   --text-color: var(--text-color);
   background-color: var(--cinereous);
   line-height: 1.8;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(84, 94, 86, 0.2);
+  box-shadow: 0 3px 8px rgb(43, 48, 43);
 }
 
 .hero {
   text-align: center;
+  display: block;
   padding-bottom: 2rem;
   border-bottom: 3px solid var(--rosy-brown);
 }
