@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -28,37 +29,18 @@ public class SecurityConfig {
     private final UserDetailServiceImpl userDetailService;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
-
-                .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint((req, res, e) -> {
-                            if (!res.isCommitted()) {
-                                res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                                res.setContentType("application/json");
-                                res.getWriter().write("{\"error\":\"unauthorized\"}");
-                            }
-                        })
-                        .accessDeniedHandler((req, res, e) -> {
-                            if (!res.isCommitted()) {
-                                res.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                res.setContentType("application/json");
-                                res.getWriter().write("{\"error\":\"forbidden\"}");
-                            }
-                        })
-                )
-
+                .cors(Customizer.withDefaults())
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/actuator/**", "/api/auth/**", "/api/**")) // adjust to your needs
                 .authorizeHttpRequests(auth -> auth
-                        // CORS preflight & error page
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/error").permitAll()
 
-                        // public APIs
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        //health checking needs access in ssh
+                        .requestMatchers("/actuator/health", "/actuator/health/**", "/actuator/info").permitAll()
+                       //login/create account
                         .requestMatchers("/api/auth/**").permitAll()
+                        //features
                         .requestMatchers("/api/rates/**").permitAll()
                         .requestMatchers("/api/municipalities/**").permitAll()
                         .requestMatchers("/api/towns/**").permitAll()
@@ -69,17 +51,15 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/api/submissions/submit").permitAll()
 
 
-                        // user features
+                        // user account
                         .requestMatchers("/api/userbills").authenticated()
                         .requestMatchers(HttpMethod.POST,"/api/userbills").authenticated()
                         .requestMatchers("/api/userbills/**").authenticated()
 
                         .requestMatchers("/api/users/**").authenticated()
 
-                        // admin
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                        // everything else requires auth
                         .anyRequest().authenticated()
                 )
 
@@ -102,15 +82,14 @@ public class SecurityConfig {
                 .build();
     }
 
+
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();
-        cfg.setAllowedOrigins(List.of("http://localhost:4200", "http://127.0.0.1:4200", "http://localhost"));
-        cfg.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
-        cfg.setAllowedHeaders(List.of("Authorization","Content-Type","X-Requested-With"));
-        cfg.setExposedHeaders(List.of("Authorization"));
+        cfg.setAllowedOrigins(List.of("https://utilitywatch.org", "http://localhost:4200"));
+        cfg.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        cfg.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With"));
         cfg.setAllowCredentials(true);
-        cfg.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", cfg);
         return source;

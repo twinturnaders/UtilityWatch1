@@ -1,0 +1,30 @@
+stages: [build]
+
+variables:
+  DOCKER_TLS_CERTDIR: ""
+
+build_backend:
+  stage: build
+  image: docker:27
+  services: [docker:27-dind]
+  rules:
+    - if: $CI_COMMIT_BRANCH == "1.0"
+  script:
+    - docker login -u "$DH_USER" -p "$DH_TOKEN" docker.io
+    - docker build -t docker.io/thatsmypurse/utilitywatch-backend:$CI_COMMIT_SHA backend
+    - docker tag docker.io/thatsmypurse/utilitywatch-backend:$CI_COMMIT_SHA docker.io/thatsmypurse/utilitywatch-backend:1.0
+    - docker push docker.io/thatsmypurse/utilitywatch-backend:$CI_COMMIT_SHA
+    - docker push docker.io/thatsmypurse/utilitywatch-backend:1.0
+
+build_frontend:
+  stage: build
+  image: docker:27
+  services: [docker:27-dind]
+  rules:
+    - if: $CI_COMMIT_BRANCH == "1.0"
+  script:
+    - docker login -u "$DH_USER" -p "$DH_TOKEN" docker.io
+    - docker build -t docker.io/thatsmypurse/utilitywatch-frontend:$CI_COMMIT_SHA frontend
+    - docker tag docker.io/thatsmypurse/utilitywatch-frontend:$CI_COMMIT_SHA docker.io/thatsmypurse/utilitywatch-frontend:1.0
+    - docker push docker.io/thatsmypurse/utilitywatch-frontend:$CI_COMMIT_SHA
+    - docker push docker.io/thatsmypurse/utilitywatch-frontend:1.0
