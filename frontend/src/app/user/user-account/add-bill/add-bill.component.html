@@ -71,7 +71,7 @@
     <h3>Fees</h3>
     <div class="tiers">
       <div class="tiers-head">
-        <button class="btn" type="button" (click)="addFee()">Add fee</button>
+        <button class="cta-buttonAdd" type="button" (click)="addFee()">Add fee</button>
       </div>
 
       <div class="tier-row" *ngFor="let f of feesArray.controls; let i = index" [formGroup]="f">
@@ -90,7 +90,7 @@
           </small>
         </div>
         <div class="row-actions">
-          <button class="btn danger" type="button" (click)="removeFee(i)">Remove</button>
+          <button class="cta-buttonRemove" type="button" (click)="removeFee(i)">Remove</button>
         </div>
 
       </div>
@@ -102,11 +102,11 @@
     </div>
 
     <div class="actions">
-      <button class="btn primary" type="submit" [disabled]="submitting || form.invalid">
+      <button class="cta-buttonSubmit" type="submit" [disabled]="submitting || form.invalid">
         <span *ngIf="!submitting">Save bill</span>
         <span *ngIf="submitting">Saving…</span>
       </button>
-      <a routerLink="/user/bills" class="btn">Cancel</a>
+      <a routerLink="/user/bills" class="cta-buttonCancel">Cancel</a>
     </div>
   </form>
 </section>
