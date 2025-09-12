@@ -86,7 +86,7 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();
-        cfg.setAllowedOrigins(List.of("https://utilitywatch.org", "http://localhost:4200"));
+        cfg.setAllowedOrigins(List.of("https://utilitywatch.org", "http://localhost:4200", "https://www.utilitywatch.org"));
         cfg.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         cfg.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With"));
         cfg.setAllowCredentials(true);

@@ -1,0 +1,7 @@
+
+.brand {
+  font-family: Calibri, cursive; font-weight: 700;
+}
+.logo { display: grid; place-items: center; color: var(--rosy-brown); }
+.wordmark { font-size: 2rem; line-height: 1; color: var(--reseda-green)}
+.wordmark .accent { color: var(--rosy-brown); }

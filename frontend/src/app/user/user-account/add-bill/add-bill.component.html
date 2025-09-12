@@ -1,7 +1,6 @@
 <section class="shell card">
   <header class="header-row">
     <h2>Add Bill</h2>
-    <a routerLink="/user-account/bills" class="btn">Back to Bills</a>
   </header>
 
   <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
@@ -71,7 +70,7 @@
     <h3>Fees</h3>
     <div class="tiers">
       <div class="tiers-head">
-        <button class="cta-buttonAdd" type="button" (click)="addFee()">Add fee</button>
+        <button class="cta-button-add" type="button" (click)="addFee()">Add fee</button>
       </div>
 
       <div class="tier-row" *ngFor="let f of feesArray.controls; let i = index" [formGroup]="f">
@@ -90,7 +89,7 @@
           </small>
         </div>
         <div class="row-actions">
-          <button class="cta-buttonRemove" type="button" (click)="removeFee(i)">Remove</button>
+          <button class="cta-button-remove" type="button" (click)="removeFee(i)">Remove</button>
         </div>
 
       </div>
@@ -102,11 +101,11 @@
     </div>
 
     <div class="actions">
-      <button class="cta-buttonSubmit" type="submit" [disabled]="submitting || form.invalid">
+      <button class="cta-button-submit" type="submit" [disabled]="submitting || form.invalid">
         <span *ngIf="!submitting">Save bill</span>
         <span *ngIf="submitting">Saving…</span>
       </button>
-      <a routerLink="/user/bills" class="cta-buttonCancel">Cancel</a>
+      <a routerLink="/user/bills" class="cta-button-cancel">Cancel</a>
     </div>
   </form>
 </section>
