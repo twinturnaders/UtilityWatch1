@@ -1,5 +1,4 @@
 name: capstone
-
 services:
   db:
     image: postgis/postgis:16-3.4
@@ -19,13 +18,15 @@ services:
       retries: 20
 
   backend:
-    image: docker.io/thatsmypurse/utilitywatch-backend:${BACKEND_TAG:-latest}
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: cap_backend
     restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
-    env_file: [.env]
+    env_file: [ .env ]
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/capstone
@@ -34,33 +35,34 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
       SERVER_FORWARD_HEADERS_STRATEGY: framework
       SERVER_SERVLET_SESSION_COOKIE_SECURE: "true"
-      # SameSite defaults to Lax (good for same-origin); omit unless you need None
       SERVER_PORT: 8080
-    # Bind to loopback so only Nginx can reach it
     ports:
       - "127.0.0.1:8080:8080"
+
     healthcheck:
-      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8080/actuator/health"]
+      test: [ "CMD", "curl", "-fsS", "http://127.0.0.1:8080/actuator/health" ]
       interval: 15s
       timeout: 3s
       retries: 10
       start_period: 20s
 
   frontend:
-    image: docker.io/thatsmypurse/utilitywatch-frontend:${FRONTEND_TAG:-latest}
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: cap_web
     restart: unless-stopped
-    depends_on:
-      - backend
 
+    depends_on:
+        - backend
     ports:
-      - "127.0.0.1:3000:80"
+        - "127.0.0.1:3000:80"
     healthcheck:
-      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:3000"]
-      interval: 15s
-      timeout: 3s
-      retries: 10
-      start_period: 10s
+        test: [ "CMD", "curl", "-fsS", "http://127.0.0.1:3000" ]
+        interval: 15s
+        timeout: 3s
+        retries: 10
+        start_period: 10s
 
 volumes:
-  dbdata:
+   dbdata:

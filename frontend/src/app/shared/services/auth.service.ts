@@ -47,10 +47,10 @@ export class AuthService {
       return false;
     }
   }
-  
 
 
-  private base = `${environment.apiUrl}/api/auth`;
+
+  private base = `${environment.apiUrl}/auth`;
 
   constructor(private http: HttpClient, private tokens: TokenService) {}
 

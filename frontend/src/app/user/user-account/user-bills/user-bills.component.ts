@@ -48,7 +48,7 @@ export interface BillCompareResult {
 
 export class UserBillsComponent implements OnInit {
 
-  private base = `${environment.apiUrl}/api/userbills`;
+  private base = `${environment.apiUrl}/userbills`;
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
   bills: UserBillDTO[] = [];

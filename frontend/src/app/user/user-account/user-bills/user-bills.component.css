@@ -23,3 +23,14 @@ tbody td { padding:.6rem .5rem; border-bottom:1px solid #c6d2cd; }
   0% { background-position: -200px 0; }
   100% { background-position: 200px 0; }
 }
+.cta-button-add {
+  background-color: #1b1e1b;
+  color: #fff;
+  border: none;
+  padding: .6rem 1.3rem;
+  font-size: .9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 3px 6px rgba(84, 94, 86, 0.25);
+}

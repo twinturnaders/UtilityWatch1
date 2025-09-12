@@ -32,7 +32,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(Customizer.withDefaults())
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/actuator/**", "/api/auth/**", "/api/**")) // adjust to your needs
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/actuator/**", "/api/auth/**", "/api/**"))
                 .authorizeHttpRequests(auth -> auth
 
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
