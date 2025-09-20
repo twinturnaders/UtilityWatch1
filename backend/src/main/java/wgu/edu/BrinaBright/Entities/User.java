@@ -37,6 +37,10 @@ public class User {
         return role.toString();
     }
 
+    public Role getRole() {
+        return role;
+    }
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role = Role.USER;

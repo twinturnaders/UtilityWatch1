@@ -29,41 +29,33 @@ public class SecurityConfig {
     private final UserDetailServiceImpl userDetailService;
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .cors(Customizer.withDefaults())
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/actuator/**", "/api/auth/**", "/api/**"))
-                .authorizeHttpRequests(auth -> auth
 
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        //health checking needs access in ssh
-                        .requestMatchers("/actuator/health", "/actuator/health/**", "/actuator/info").permitAll()
-                       //login/create account
-                        .requestMatchers("/api/auth/**").permitAll()
-                        //features
-                        .requestMatchers("/api/rates/**").permitAll()
-                        .requestMatchers("/api/municipalities/**").permitAll()
-                        .requestMatchers("/api/towns/**").permitAll()
-                        .requestMatchers("/api/towns/names").permitAll()
+        SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+            http
+                    .cors(Customizer.withDefaults())
+                    .csrf(csrf -> csrf.ignoringRequestMatchers("/actuator/**", "/api/auth/**", "/api/**"))
+                    .authorizeHttpRequests(auth -> auth
+                            // allow preflight for everyone
+                            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                                    .requestMatchers("/actuator/**").permitAll()
+                                    .requestMatchers("/api/auth/**").permitAll()
+                                    .requestMatchers("/api/rates/**").permitAll()
+                                    .requestMatchers("/api/municipalities/**").permitAll()
+                                    .requestMatchers("/api/towns/**").permitAll()
+                                    .requestMatchers("/api/towns/names").permitAll()
+                                    .requestMatchers("/api/submissions/submit", "/api/submissions/submit/**").permitAll()
+                                    .requestMatchers(HttpMethod.POST,"/api/submissions/submit").permitAll()
+                                    .requestMatchers("/api/userbills").authenticated()
+                                    .requestMatchers(HttpMethod.POST,"/api/userbills").authenticated()
+                                    .requestMatchers("/api/userbills/**").authenticated()
+                                    .requestMatchers("/api/users/**").authenticated()
+                                    .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                                    .anyRequest().authenticated()
+                    );
 
 
-                        .requestMatchers("/api/submissions/submit", "/api/submissions/submit/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/submissions/submit").permitAll()
 
-
-                        // user account
-                        .requestMatchers("/api/userbills").authenticated()
-                        .requestMatchers(HttpMethod.POST,"/api/userbills").authenticated()
-                        .requestMatchers("/api/userbills/**").authenticated()
-
-                        .requestMatchers("/api/users/**").authenticated()
-
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-
-                        .anyRequest().authenticated()
-                )
-
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -86,7 +78,7 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();
-        cfg.setAllowedOrigins(List.of("https://utilitywatch.org", "http://localhost:4200", "https://www.utilitywatch.org"));
+        cfg.setAllowedOrigins(List.of("https://utilitywatch.org", "http://localhost:4200"));
         cfg.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         cfg.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With"));
         cfg.setAllowCredentials(true);
@@ -94,4 +86,5 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", cfg);
         return source;
     }
+
 }

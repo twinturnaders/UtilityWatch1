@@ -44,7 +44,7 @@ public class JwtTokenProvider {
         return v != null ? v.toString() : null;
     }
 
-    @SuppressWarnings("unchecked")
+
     public List<String> getRoles(String token) {
         Object r = parseClaims(token).get("roles");
         if (r instanceof List<?> list) {

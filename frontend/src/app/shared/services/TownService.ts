@@ -6,6 +6,6 @@ import {TownOnlyDTO} from '../municipality/TownOnly.dto';
 export class TownService {
   constructor(private http: HttpClient) {}
   getTownNames() {
-    return this.http.get<TownOnlyDTO[]>('/api/towns/names');
+    return this.http.get<TownOnlyDTO[]>('/towns/names');
   }
 }

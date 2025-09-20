@@ -32,7 +32,7 @@ interface CrowdSubmission {
 export class AdminApprovalComponent {
   private http = inject(HttpClient);
   private muni = inject(MunicipalityService);
-  private base = `${environment.apiUrl}/api/admin/submissions`;
+  private base = `${environment.apiUrl}/admin/submissions`;
 
   loading = false;
   error: string | null = null;

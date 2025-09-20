@@ -72,7 +72,7 @@ export class RateInputComponent {
   private muni = inject(MunicipalityService);
   private townService = inject(TownService);
 
-  private base = `${environment.apiUrl}/api/submissions/submit`;
+  private base = `${environment.apiUrl}/submissions/submit`;
   private cdr = inject(ChangeDetectorRef);
   submitting = false;
   success: string | null = null;
@@ -221,7 +221,7 @@ export class RateInputComponent {
     });
 
     const posts: Array<ReturnType<typeof this.http.post<string>>> = [];
-    const base = '/api/submissions'; // use relative path so proxy handles CORS
+    const base = '/api/submissions';
 
     if (hasWater) {
       posts.push(

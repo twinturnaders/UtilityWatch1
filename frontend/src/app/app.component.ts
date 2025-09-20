@@ -11,7 +11,7 @@ import {SiteHeaderComponent} from './shared/app-header/app-header.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'test';
+  title = 'utilitywatch';
   private authSvc = inject(AuthService);
   private router = inject(Router);
 

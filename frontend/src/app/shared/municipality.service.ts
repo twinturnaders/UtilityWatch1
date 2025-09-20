@@ -44,7 +44,7 @@ export interface MunicipalityOption {
 
 @Injectable({ providedIn: 'root' })
 export class MunicipalityService {
-  private base = `${environment.apiUrl}/api/municipalities`;
+  private base = `${environment.apiUrl}/municipalities`;
   constructor(private http: HttpClient) {}
 
 
@@ -62,7 +62,7 @@ export class MunicipalityService {
 
 
     return this.http
-      .get<RateSummaryDto[]>(`${environment.apiUrl}/api/rates/nearby`, { params })
+      .get<RateSummaryDto[]>(`${environment.apiUrl}/rates/nearby`, { params })
       .pipe(map(res => (Array.isArray(res) ? res : [])));
   }
 

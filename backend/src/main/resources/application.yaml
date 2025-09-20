@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/capstone}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://db:5432/capstone}
     username: ${SPRING_DATASOURCE_USERNAME:capuser}
     password: ${SPRING_DATASOURCE_PASSWORD:cappass}
   jpa:

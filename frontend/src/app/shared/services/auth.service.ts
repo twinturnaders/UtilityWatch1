@@ -1,14 +1,15 @@
-// src/app/core/services/auth.service.ts
+
 import {inject, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { map, Observable } from 'rxjs';
 import { TokenService } from './token.service';
 import {Router} from '@angular/router';
+import {UserDTO} from '../shared.module';
 
 export interface LoginRequest { email: string; password: string; }
 export interface RegisterRequest { email: string; password: string; zipCode: string; displayName?: string; }
-export interface AuthResponse { token: string; userId: number; email: string; displayName?: string; roles?: string[]; }
+export interface AuthResponse { token: string; userId: number; email: string; displayName?: string; role?: string[]; }
 const KEY = 'auth_token';
 
 @Injectable({ providedIn: 'root' })
@@ -75,5 +76,11 @@ export class AuthService {
 
   }
 
-
+user?: UserDTO;
+  isAdmin() {
+    if (this.user?.role === 'ADMIN') {
+      return true;
+    }
+    else {return false;}
+  }
 }

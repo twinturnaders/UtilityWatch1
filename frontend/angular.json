@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "test": {
+    "utilitywatch": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/test",
+            "outputPath": "dist/utilitywatch",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -31,18 +31,20 @@
           "configurations": {
             "production": {
               "fileReplacements": [
-                { "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts" }
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
               ],
+
               "budgets": [
                 { "type": "initial", "maximumWarning": "500kB", "maximumError": "1MB" },
                 { "type": "anyComponentStyle", "maximumWarning": "4kB", "maximumError": "8kB" }
               ],
-              "outputHashing": "all",
-              "optimization": true
+              "outputHashing": "all"
             },
             "development": {
-              "optimization": false,
+              "optimization": true,
               "extractLicenses": false,
               "sourceMap": true
             }
@@ -56,10 +58,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "test:build:production"
+              "buildTarget": "utilitywatch:build:production"
             },
             "development": {
-              "buildTarget": "test:build:development"
+              "buildTarget": "utilitywatch:build:development"
             }
           },
           "defaultConfiguration": "development"

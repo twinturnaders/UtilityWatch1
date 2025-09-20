@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
 import {Router, RouterLink} from '@angular/router';
-import {NgIf} from '@angular/common';
+import {NgClass, NgIf} from '@angular/common';
 import {HomeButtonComponent} from '../../shared/home-button/home-button.component';
 
 @Component({
@@ -12,7 +12,8 @@ import {HomeButtonComponent} from '../../shared/home-button/home-button.componen
     ReactiveFormsModule,
     NgIf,
     RouterLink,
-    HomeButtonComponent
+
+    NgClass
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
@@ -20,7 +21,7 @@ import {HomeButtonComponent} from '../../shared/home-button/home-button.componen
 export class LoginComponent implements OnInit {
   loading = false;
   error: string | null = null;
-
+  fieldTextType: boolean = false;
   form!: FormGroup;
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
 
@@ -32,6 +33,12 @@ export class LoginComponent implements OnInit {
 
   }
 
+
+
+
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
   submit() {
     if (this.form.invalid) return;
     this.loading = true; this.error = null;

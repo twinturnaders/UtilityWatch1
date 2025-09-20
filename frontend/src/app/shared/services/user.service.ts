@@ -8,7 +8,7 @@ import { UpdateAccountRequest } from '../../user/account-update-request';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private base = `${environment.apiUrl}/api/users`;
+  private base = `${environment.apiUrl}/users`;
 
   constructor(private http: HttpClient) {}
 

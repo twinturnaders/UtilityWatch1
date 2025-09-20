@@ -57,7 +57,7 @@ export class AddBillComponent {
 
 
 
- private base = `${environment.apiUrl}/api/userbills`;
+ private base = `${environment.apiUrl}/userbills`;
 
   submitting = false;
   error: string | null = null;
