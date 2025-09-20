@@ -78,4 +78,8 @@ public class CrowdSubmissionService {
         }
         s.setUpdatedAt(Instant.now());
     }
+
+    public List<CrowdSubmission>  findAll() {
+        return submissions.findAll();
+    }
 }

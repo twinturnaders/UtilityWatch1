@@ -16,6 +16,12 @@ import java.util.Map;
 public class AdminSubmissionsController {
 
     private final CrowdSubmissionService service;
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<CrowdSubmission> allSubmissions(){
+    return service.findAll();
+    }
+
 
     @GetMapping("/pending")
     @PreAuthorize("hasRole('ADMIN')")

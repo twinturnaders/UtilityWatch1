@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CrowdSubmissionRepository extends JpaRepository<CrowdSubmission, Long> {
     List<CrowdSubmission> findByStatusOrderByCreatedAtAsc(SubmissionStatus status);
+
+
 }
