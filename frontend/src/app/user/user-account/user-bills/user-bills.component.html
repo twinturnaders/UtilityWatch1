@@ -1,65 +1,73 @@
-
-
 <section class="card">
-   <button class="cta-button-add" routerLink="/user-account/bills/add-bill" >Add Bill</button>
-
+  <button class="cta-button-add" routerLink="/user-account/bills/add-bill">Add Bill</button>
   <router-outlet/>
-  <div class="header-row">
 
-    <h2 class="card-title">Your Bills</h2>
-
-  </div>
-
-  <p class="muted" *ngIf="!bills?.length && !loading">No bills yet. Click “Add Bill” to upload one.</p>
+  <p class="muted" *ngIf="!bills?.length && !loading">No bills yet. Click “Add Bill”.</p>
   <p class="error" *ngIf="error">{{ error }}</p>
 
-  <div class="table-wrap" *ngIf="bills?.length">
-    <table>
-      <thead>
-      <tr>
-        <th>Bill Date</th>
-        <th>Due Date</th>
-        <th>Paid</th>
-        <th>Water Use</th>
-        <th>Sewer Use</th>
-        <th>Water Charges</th>
-        <th>Sewer Charges</th>
-        <th>Fees</th>
-        <th>Total Cost</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let b of bills">
-        <td>{{ b.billDate | date:'MMM d, y' }}</td>
-        <td>{{ b.dueDate | date: 'MMM d, y' }}</td>
-        <td><input type="checkbox" [checked]="b.paid" /></td>
-        <td>{{ b.waterUsage }}</td>
-        <td>{{ b.sewerUsage }}</td>
-        <td>{{ b.waterCharge | currency }}</td>
-        <td>{{ b.sewerCharge | currency }}</td>
-        <td>
-          <ng-container *ngIf="b.fees && (objectKeys(b.fees).length); else noFees">
-            <ul>
-              <li *ngFor="let fee of (b.fees | keyvalue)">
-                {{ fee.key }}: {{ fee.value | currency }}
-              </li>
-            </ul>
-          </ng-container>
-          <ng-template #noFees>
-
-            <span class="muted">—</span>
-          </ng-template>
-        </td>
-
-        <!-- Total -->
-        <td>{{ TotalCharge(b) | currency }}</td>
-
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-
+  <app-report
+    *ngIf="bills?.length"
+    [title]="'Your Bills'"
+    [bills]="bills"
+    [fileNamePrefix]="'utilitywatch-saved-bills'">
+  </app-report>
 </section>
+<!--  <div class="header-row">-->
+
+<!--    <h2 class="card-title">Your Bills</h2>-->
+
+<!--  </div>-->
+
+<!--  <p class="muted" *ngIf="!bills?.length && !loading">No bills yet. Click “Add Bill” to upload one.</p>-->
+<!--  <p class="error" *ngIf="error">{{ error }}</p>-->
+
+<!--  <div class="table-wrap" *ngIf="bills?.length">-->
+<!--    <table>-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th>Bill Date</th>-->
+<!--        <th>Due Date</th>-->
+<!--        <th>Paid</th>-->
+<!--        <th>Water Use</th>-->
+<!--        <th>Sewer Use</th>-->
+<!--        <th>Water Charges</th>-->
+<!--        <th>Sewer Charges</th>-->
+<!--        <th>Fees</th>-->
+<!--        <th>Total Cost</th>-->
+<!--        <th></th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr *ngFor="let b of bills">-->
+<!--        <td>{{ b.billDate | date:'MMM d, y' }}</td>-->
+<!--        <td>{{ b.dueDate | date: 'MMM d, y' }}</td>-->
+<!--        <td><input type="checkbox" [checked]="b.paid" /></td>-->
+<!--        <td>{{ b.waterUsage }}</td>-->
+<!--        <td>{{ b.sewerUsage }}</td>-->
+<!--        <td>{{ b.waterCharge | currency }}</td>-->
+<!--        <td>{{ b.sewerCharge | currency }}</td>-->
+<!--        <td>-->
+<!--          <ng-container *ngIf="b.fees && (objectKeys(b.fees).length); else noFees">-->
+<!--            <ul>-->
+<!--              <li *ngFor="let fee of (b.fees | keyvalue)">-->
+<!--                {{ fee.key }}: {{ fee.value | currency }}-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </ng-container>-->
+<!--          <ng-template #noFees>-->
+
+<!--            <span class="muted">—</span>-->
+<!--          </ng-template>-->
+<!--        </td>-->
+
+<!--        &lt;!&ndash; Total &ndash;&gt;-->
+<!--        <td>{{ TotalCharge(b) | currency }}</td>-->
+
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+
+
+<!--  </div>-->
+
 

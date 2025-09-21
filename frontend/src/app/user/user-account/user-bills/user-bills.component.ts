@@ -4,6 +4,8 @@ import {finalize} from 'rxjs/operators';
 import {environment} from '../../../../environments/environment';
 import {CommonModule} from '@angular/common';
 import {RouterLink, RouterOutlet} from '@angular/router';
+import {ReportComponent} from './report/report.component';
+import {Observable} from 'rxjs';
 
 export interface BillFeeDTO {
   name?: string;
@@ -11,6 +13,7 @@ export interface BillFeeDTO {
 }
 
 export interface UserBillDTO {
+  municipality: string;
   id?: number;
   billDate?: string;
   dueDate?: string;
@@ -44,10 +47,10 @@ export interface BillCompareResult {
   styleUrls: ['./user-bills.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterOutlet]})
+  imports: [CommonModule, RouterLink, RouterOutlet, ReportComponent]})
 
 export class UserBillsComponent implements OnInit {
-
+  bills$!: Observable<UserBillDTO[]>;
   private base = `${environment.apiUrl}/userbills`;
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
@@ -55,7 +58,7 @@ export class UserBillsComponent implements OnInit {
   loading = false;
   error: string | null = null;
 
-  // selection / actions
+
   selectedBill: UserBillDTO | null = null;
 
   compareResults: BillCompareResult[] = [];
@@ -112,6 +115,10 @@ ifNull(b: UserBillDTO): string | null{
 }
 
 
+
+
+
+  print() { window.print(); }
   // saveNewBill(req: CreateBillRequest): void {
   //   this.error = null;
   //   this.loading = true;

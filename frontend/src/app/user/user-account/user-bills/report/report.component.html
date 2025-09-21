@@ -1,0 +1,51 @@
+<section class="report-shell">
+  <header class="header">
+    <h1>{{ title }}</h1>
+    <p class="muted">Generated: {{ generatedAt | date:'medium' }}</p>
+  </header>
+
+  <div *ngIf="(bills?.length ?? 0) > 0; else empty">
+    <table class="table" role="table" aria-label="Saved Bills Report">
+      <thead>
+      <tr role="row">
+        <th role="columnheader" (click)="toggleSort()" style="cursor:pointer">
+          Bill Date
+          <span aria-hidden="true">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
+        </th>
+        <th role="columnheader">Municipality</th>
+        <th role="columnheader" class="num">Water</th>
+        <th role="columnheader" class="num">Sewer</th>
+        <th role="columnheader" class="num">Fees</th>
+        <th role="columnheader" class="num">Total</th>
+      </tr>
+      </thead>
+
+      <tbody>
+
+      <tr role="row" *ngFor="let b of sortedBills; trackBy: trackById">
+        <td>{{ b.billDate | date }}</td>
+        <td>{{ b.municipalityName }}</td>
+        <td class="num">{{ water(b) | currency:'USD' }}</td>
+        <td class="num">{{ sewer(b) | currency:'USD' }}</td>
+        <td>
+          <ul>
+        <li *ngFor="let f of feesAsArray(b)">
+          {{ f.name }}: {{ f.amount | currency:'USD' }}
+        </li>
+      </ul>
+        </td>
+        <td class="num">{{ totalCharge(b) | currency:'USD' }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="actions">
+      <button type="button" (click)="exportCsv()">Download CSV</button>
+      <button type="button" (click)="print()">Print or Save PDF</button>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <p class="muted">No saved bills yet.</p>
+  </ng-template>
+</section>

@@ -1,0 +1,42 @@
+.report-shell { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+.header h1 { margin: 0 0 .25rem; font-size: 1.6rem; }
+.muted { color: #6b7280; font-size: .95rem; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #c7cfc9;
+  border: 1px solid #e5e7eb;
+  border-radius: .5rem;
+  overflow: hidden;
+}
+.table thead th {
+  text-align: left;
+  font-weight: 600;
+  padding: .75rem .75rem;
+  background: #f3f4f6;
+  border-bottom: 1px solid #e5e7eb;
+}
+.table tbody td {
+  padding: .65rem .75rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+.table tbody tr:last-child td { border-bottom: none; }
+.num { text-align: right; }
+
+.actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: .75rem;
+}
+.actions button {
+  padding: .55rem .9rem;
+  border: 1px solid #e5e7eb;
+  border-radius: .5rem;
+  background: #f9fafb;
+  cursor: pointer;
+}
+.actions button:hover { background: #f3f4f6; }
+.table thead th { user-select: none; }
+.table thead th:first-child:hover { text-decoration: underline; }
