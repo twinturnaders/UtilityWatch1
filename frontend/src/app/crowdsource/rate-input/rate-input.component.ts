@@ -127,11 +127,13 @@ export class RateInputComponent {
     })
   );
 
+  isChecked = false;
 
   onToggleOtherTown(checked: boolean): void {
     if (checked) {
       this.townCtrl.setValue('');
       this.form.patchValue({ municipalityName: null, municipalityId: null });
+      this.isChecked = true;
     } else {
       this.form.patchValue({ otherTownName: null });
     }

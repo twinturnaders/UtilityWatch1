@@ -2,29 +2,57 @@ stages: [build]
 
 variables:
   DOCKER_TLS_CERTDIR: ""
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+.docker-build:
+  stage: build
+  image: docker:27
+  services:
+    - name: docker:27-dind
+      alias: docker
+  before_script:
+    - echo "Logging in to Docker Hub…"
+    - docker login -u "$DH_USER" -p "$DH_TOKEN" docker.io
+    - |
+      # Build args (optional)
+      echo "CI_COMMIT_SHA=$CI_COMMIT_SHA"
+  script:
+    - |
+      docker build --pull -t "$IMAGE_NAME:$CI_COMMIT_SHA" "$CONTEXT"
+
+      docker tag "$IMAGE_NAME:$CI_COMMIT_SHA" "$IMAGE_NAME:$STABLE_TAG"
+
+      docker tag "$IMAGE_NAME:$CI_COMMIT_SHA" "$IMAGE_NAME:$CI_COMMIT_REF_SLUG"
+
+      if [ "$CI_DEFAULT_BRANCH" = "$CI_COMMIT_BRANCH" ]; then
+        docker tag "$IMAGE_NAME:$CI_COMMIT_SHA" "$IMAGE_NAME:latest"
+      fi
+
+      
+      docker push "$IMAGE_NAME:$CI_COMMIT_SHA"
+      docker push "$IMAGE_NAME:$STABLE_TAG"
+      docker push "$IMAGE_NAME:$CI_COMMIT_REF_SLUG"
+      if [ "$CI_DEFAULT_BRANCH" = "$CI_COMMIT_BRANCH" ]; then
+        docker push "$IMAGE_NAME:latest"
+      fi
+  rules:
+
+    - if: $CI_COMMIT_BRANCH == "1.0"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
 
 build_backend:
-  stage: build
-  image: docker:27
-  services: [docker:27-dind]
-  rules:
-    - if: $CI_COMMIT_BRANCH == "1.0"
-  script:
-    - docker login -u "$DH_USER" -p "$DH_TOKEN" docker.io
-    - docker build -t docker.io/thatsmypurse/utilitywatch-backend:$CI_COMMIT_SHA backend
-    - docker tag docker.io/thatsmypurse/utilitywatch-backend:$CI_COMMIT_SHA docker.io/thatsmypurse/utilitywatch-backend:1.0
-    - docker push docker.io/thatsmypurse/utilitywatch-backend:$CI_COMMIT_SHA
-    - docker push docker.io/thatsmypurse/utilitywatch-backend:1.0
+  extends: .docker-build
+  variables:
+    IMAGE_NAME: docker.io/thatsmypurse/utilitywatch-backend
+    CONTEXT: backend
+    STABLE_TAG: "1.0"
+
 
 build_frontend:
-  stage: build
-  image: docker:27
-  services: [docker:27-dind]
-  rules:
-    - if: $CI_COMMIT_BRANCH == "1.0"
-  script:
-    - docker login -u "$DH_USER" -p "$DH_TOKEN" docker.io
-    - docker build -t docker.io/thatsmypurse/utilitywatch-frontend:$CI_COMMIT_SHA frontend
-    - docker tag docker.io/thatsmypurse/utilitywatch-frontend:$CI_COMMIT_SHA docker.io/thatsmypurse/utilitywatch-frontend:1.0
-    - docker push docker.io/thatsmypurse/utilitywatch-frontend:$CI_COMMIT_SHA
-    - docker push docker.io/thatsmypurse/utilitywatch-frontend:1.0
+  extends: .docker-build
+  variables:
+    IMAGE_NAME: docker.io/thatsmypurse/utilitywatch-frontend
+    CONTEXT: frontend
+    STABLE_TAG: "1.0"

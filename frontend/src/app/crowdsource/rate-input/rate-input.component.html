@@ -27,6 +27,7 @@
     <div class="grid">
 
       <!-- Town selector -->
+      <!-- Town selector -->
       <div class="field">
         <mat-checkbox
           class="mat-box"
@@ -38,8 +39,8 @@
 
         <!-- Pick from list -->
         <ng-container *ngIf="!form.get('useOtherTown')?.value">
-          <ng-container class="container" *ngIf="allTowns$ | async as towns">
-            <mat-form-field appearance="outline" class="w-full">
+          <ng-container *ngIf="allTowns$ | async as towns">
+            <mat-form-field class="w-full">
               <mat-label>Town</mat-label>
               <input
                 matInput
@@ -53,10 +54,8 @@
                 aria-autocomplete="list"
               />
 
-
               <mat-autocomplete
                 #auto="matAutocomplete"
-                class="custom-auto-panel"
                 autoActiveFirstOption
                 (optionSelected)="onTownPicked($event, towns)"
               >
@@ -148,7 +147,11 @@
           <h3>Water rate by consumption</h3>
           <button type="button" class="btn" (click)="addWaterTier()">Add tier</button>
           <div class="hint" style="background:#fff; border:1px solid #e7ece8; border-radius:.5rem; padding:.75rem; margin-top:.5rem;">
-            <strong>Example</strong><br>
+            <strong>Example 1</strong><br>
+            Tier 1: $2/KGal - Does not vary
+          </div>
+          <div class="hint" style="background:#fff; border:1px solid #e7ece8; border-radius:.5rem; padding:.75rem; margin-top:.5rem;">
+            <strong>Example 2</strong><br>
             Tier 1: $2/KGal up to 10,000 gal<br>
             Tier 2: $3/KGal with no upper limit
           </div>
@@ -197,7 +200,11 @@
           <h3>Sewer rate by consumption</h3>
           <button type="button" class="btn" (click)="addSewerTier()">Add tier</button>
           <div class="hint" style="background:#fff; border:1px solid #e7ece8; border-radius:.5rem; padding:.75rem; margin-top:.5rem;">
-            <strong>Example</strong><br>
+            <strong>Example 1</strong><br>
+            Tier 1: $2/KGal - Does not vary
+          </div>
+          <div class="hint" style="background:#fff; border:1px solid #e7ece8; border-radius:.5rem; padding:.75rem; margin-top:.5rem;">
+            <strong>Example 2</strong><br>
             Tier 1: $2/KGal up to 10,000 gal<br>
             Tier 2: $3/KGal with no upper limit
           </div>
