@@ -36,9 +36,23 @@
         >
           Town not listed? Use “Other”
         </mat-checkbox>
-
+        <ng-container *ngIf="isChecked">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Other town name</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="otherTownName"
+              placeholder="e.g., Unincorporated Area near XYZ"
+            />
+            <mat-hint>Enter at least 2 characters.</mat-hint>
+            <mat-error *ngIf="form.errors?.['otherTownRequired'] && (form.touched || form.dirty)">
+              Please enter the town name.
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
         <!-- Pick from list -->
-        <ng-container *ngIf="!form.get('useOtherTown')?.value">
+        <ng-container *ngIf="!isChecked">
           <ng-container *ngIf="allTowns$ | async as towns">
             <mat-form-field class="w-full">
               <mat-label>Town</mat-label>
@@ -77,21 +91,7 @@
         </ng-container>
 
         <!-- Other town -->
-        <ng-container *ngIf="form.get('useOtherTown')?.value">
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Other town name</mat-label>
-            <input
-              matInput
-              type="text"
-              formControlName="otherTownName"
-              placeholder="e.g., Unincorporated Area near XYZ"
-            />
-            <mat-hint>Enter at least 2 characters.</mat-hint>
-            <mat-error *ngIf="form.errors?.['otherTownRequired'] && (form.touched || form.dirty)">
-              Please enter the town name.
-            </mat-error>
-          </mat-form-field>
-        </ng-container>
+
       </div>
 
       <!-- Effective date -->
