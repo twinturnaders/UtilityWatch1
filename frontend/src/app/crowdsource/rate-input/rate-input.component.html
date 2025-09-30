@@ -53,7 +53,7 @@
         </ng-container>
         <!-- Pick from list -->
         <ng-container *ngIf="!isChecked">
-          <ng-container *ngIf="allTowns$ | async as towns">
+          <ng-container *ngIf="allTowns$ | async as towns" style="border: 4px #0b1020;">
             <mat-form-field class="w-full">
               <mat-label>Town</mat-label>
               <input
