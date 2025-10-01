@@ -1,5 +1,4 @@
-Version: v1.1.2
-Absolutely! Here’s a drop-in `README.md` tailored for UtilityWatch. You can paste this into your repo root and tweak any project-specific names/variables.
+
 
 ---
 
