@@ -52,13 +52,8 @@ jobs:
     if: github.ref == 'refs/heads/v2'
     runs-on: ubuntu-latest
     steps:
-      - name: Add host key
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -p "${{ secrets.DEPLOY_SSH_PORT || 22 }}" "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
-
       - name: Remote deploy (pull new images, restart)
-        uses: appleboy/ssh-action@v1.1.0
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
