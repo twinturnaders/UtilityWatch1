@@ -45,7 +45,6 @@ jobs:
 
   deploy:
     needs: build-and-push
-    if: github.ref == 'refs/origin/v2'
     runs-on: ubuntu-latest
     steps:
       - name: Add host key
