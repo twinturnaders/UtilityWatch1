@@ -43,22 +43,21 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+  
   deploy:
-    needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      - name: Add host key
+      - name: Add host key (avoid interactive prompt)
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -p "${{ secrets.DEPLOY_SSH_PORT || 22 }}" "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
 
-
       - name: Remote deploy
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@v1.1.0
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}   
           port: ${{ secrets.DEPLOY_SSH_PORT || 22 }}
           script: |
             set -euo pipefail
