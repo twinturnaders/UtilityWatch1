@@ -4,6 +4,7 @@
     <option name="defaultGitlabCIYamlPath" value=".gitlab-ci.yml" />
     <option name="yamlToUserMarkings">
       <map>
+        <entry key="$PROJECT_DIR$/.github/workflows/deploy.yml" value="false" />
         <entry key="$PROJECT_DIR$/.github/workflows/main.yml" value="false" />
       </map>
     </option>

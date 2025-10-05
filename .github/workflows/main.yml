@@ -43,23 +43,3 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  deploy:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    steps:
-        - name: "Configure SSH"
-          run: |
-            mkdir -p ~/.ssh/
-            echo "${{ secrets.SSH_KEY }}" > ~/.ssh/external-machine.key
-            chmod 600 ~/.ssh/external-machine.key
-            cat >>~/.ssh/config <<END
-            Host external-machine
-              HostName ${{ secrets.SSH_HOST }}
-              User ${{ secrets.SSH_USER }}
-              Port ${{ secrets.SSH_PORT }}
-              IdentityFile ~/.ssh/external-machine.key
-              StrictHostKeyChecking no
-            END
-
-        - name: Deploy
-          run: ssh external-machine 'cd ~/apps/utilitywatch && ./deploy.sh'
