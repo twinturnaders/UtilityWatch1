@@ -44,8 +44,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
 
     - name: Setup SSH Key
       uses: webfactory/ssh-agent@v0.5.0
