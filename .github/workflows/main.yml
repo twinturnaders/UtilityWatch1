@@ -48,20 +48,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - name: "Configure SSH"
-          env:
-            SSH_USER: ${{ secrets.SSH_USER }}
-            SSH_KEY: ${{ secrets.SSH_KEY }}
-            SSH_HOST: ${{ secrets.SSH_HOST }}
-            SSH_PORT: ${{ secrets.SSH_PORT }}
           run: |
             mkdir -p ~/.ssh/
-            echo "$SSH_KEY" > ~/.ssh/external-machine.key
+            echo "${{ secrets.SSH_KEY }}" > ~/.ssh/external-machine.key
             chmod 600 ~/.ssh/external-machine.key
             cat >>~/.ssh/config <<END
             Host external-machine
-              HostName $SSH_HOST
-              User $SSH_USER
-              Port $SSH_PORT
+              HostName ${{ secrets.SSH_HOST }}
+              User ${{ secrets.SSH_USER }}
+              Port ${{ secrets.SSH_PORT }}
               IdentityFile ~/.ssh/external-machine.key
               StrictHostKeyChecking no
             END
