@@ -42,21 +42,28 @@ jobs:
           pull: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-deploy:
-  runs-on: ubuntu-latest
-  steps:
 
-    - name: Setup SSH Key
-      uses: webfactory/ssh-agent@v0.5.0
-      with:
-        ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
 
-    - name: Deploy code
-      uses: appleboy/ssh-action@master
-      with:
-      host: ${{secrets.DEPLOY_HOST }}
-      username: ${{ secrets.DEPLOY_USER }}
-      key: ${{ secrets.DEPLOY_SSH_KEY }}
-      script: |
-        cd ~/apps/utilitywatch
-        run ./deploy.sh
+
+      - name: Setup SSH Key
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Deploy code
+        uses: appleboy/ssh-action@master
+        with:
+        host: ${{secrets.DEPLOY_HOST }}
+        username: ${{ secrets.DEPLOY_USER }}
+        key: ${{ secrets.DEPLOY_SSH_KEY }}
+        script: |
+          cd ~/apps/utilitywatch
+          run ./deploy.sh
+          script: |
+            set -euo pipefail
+            cd ~/apps/utilitywatch
+            run ./deploy.sh
