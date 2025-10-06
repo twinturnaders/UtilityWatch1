@@ -127,7 +127,7 @@ export class RateInputComponent {
     })
   );
 
-  isChecked = false;
+  isChecked = true;
 
   onToggleOtherTown(checked: boolean): void {
     if (checked) {

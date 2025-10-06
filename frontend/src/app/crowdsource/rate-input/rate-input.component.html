@@ -30,6 +30,7 @@
       <!-- Town selector -->
       <div class="field">
         <mat-checkbox
+          hidden="hidden"
           class="mat-box"
           formControlName="useOtherTown"
           (change)="onToggleOtherTown($event.checked)"
@@ -38,7 +39,7 @@
         </mat-checkbox>
         <ng-container *ngIf="!isChecked">
           <ng-container *ngIf="allTowns$ | async as towns" style="border: 4px #0b1020;">
-            <mat-form-field class="mat-box">
+            <mat-form-field class="w-full">
               <mat-label>Town</mat-label>
               <input
                 type="text"
@@ -53,6 +54,7 @@
 
               <mat-autocomplete
                 #auto="matAutocomplete"
+                autoActiveFirstOption
                 (optionSelected)="onTownPicked($event, towns)"
               >
                 <mat-option
