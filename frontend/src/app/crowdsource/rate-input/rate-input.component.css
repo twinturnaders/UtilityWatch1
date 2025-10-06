@@ -114,19 +114,19 @@ input:focus, select:focus, textarea:focus {
 }
 
 
-.cdk-overlay-container .custom-auto-panel {
-  background-color: #fff !important;
-  color: #222 !important;
-  border: 1px solid #e3e6e8;
-  box-shadow: 0 10px 28px rgba(0,0,0,.10);
-}
-.cdk-overlay-container .custom-auto-panel .mat-mdc-option:hover {
-  background-color: #f5f9ff !important;
-}
-.cdk-overlay-container .custom-auto-panel .mat-mdc-option.mdc-list-item--selected {
-  background-color: var(--reseda-green) !important;
-  color: #fff !important;
-}
+/*.cdk-overlay-container .custom-auto-panel {*/
+/*  background-color: #fff !important;*/
+/*  color: #222 !important;*/
+/*  border: 1px solid #e3e6e8;*/
+/*  box-shadow: 0 10px 28px rgba(0,0,0,.10);*/
+/*}*/
+/*.cdk-overlay-container .custom-auto-panel .mat-mdc-option:hover {*/
+/*  background-color: #f5f9ff !important;*/
+/*}*/
+/*.cdk-overlay-container .custom-auto-panel .mat-mdc-option.mdc-list-item--selected {*/
+/*  background-color: var(--reseda-green) !important;*/
+/*  color: #fff !important;*/
+/*}*/
 
 
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
