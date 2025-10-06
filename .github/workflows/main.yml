@@ -44,19 +44,32 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
-    needs: build-and-push
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Run this job on the latest Ubuntu version
+
     steps:
-      - name: SSH_DEPLOY
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          port: ${{ secrets.DEPLOY_PORT }}
-          script: |
-            cd ~/apps/utilitywatch
-            run ./deploy.sh
+      - name: Checkout
+        uses: actions/checkout@v2 # Check out your repository code
+
+      - name: SSH and run commands
+        env:
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} # Reference the private key stored in GitHub Secrets
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key.pem # Write the private key to a file
+          chmod 600 private_key.pem # Set the appropriate permissions for the key file
+
+          # Establish an SSH connection and execute commands on the remote server
+          ssh -o StrictHostKeyChecking=no -i private_key.pem $SSH_USER <<EOF
+
+            cd  ~/apps/utilitywatch
+            ./deploy.sh
+          EOF
+
+          rm -f private_key.pem # Remove the private key file after use for security
+    permissions:
+      contents: read
+      actions: write
+      id-token: write
 #    steps:
 #        - name: "Configure SSH"
 #          env:
