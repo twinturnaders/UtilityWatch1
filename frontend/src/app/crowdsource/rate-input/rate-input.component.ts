@@ -127,8 +127,8 @@ export class RateInputComponent {
     })
   );
 
-  isChecked = true;
-
+  // isChecked = false;
+  //
   // onToggleOtherTown(checked: boolean): void {
   //   if (checked) {
   //     this.townCtrl.setValue('');

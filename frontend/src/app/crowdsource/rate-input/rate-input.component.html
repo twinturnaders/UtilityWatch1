@@ -32,9 +32,9 @@
         <mat-checkbox
           class="mat-box"
           formControlName="useOtherTown"
-          (change)="onToggleOtherTown($event.checked)"
+          [checked]="isChecked"
         >
-          Town not listed? Use “Other”
+          Town/City Name
         </mat-checkbox>
         <ng-container *ngIf="!isChecked">
           <ng-container *ngIf="allTowns$ | async as towns" style="border: 4px #0b1020;">
