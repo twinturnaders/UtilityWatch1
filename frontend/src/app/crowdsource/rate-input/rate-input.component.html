@@ -30,7 +30,6 @@
       <!-- Town selector -->
       <div class="field">
         <mat-checkbox
-          hidden="hidden"
           class="mat-box"
           formControlName="useOtherTown"
           (change)="onToggleOtherTown($event.checked)"
@@ -54,7 +53,6 @@
 
               <mat-autocomplete
                 #auto="matAutocomplete"
-                autoActiveFirstOption
                 (optionSelected)="onTownPicked($event, towns)"
               >
                 <mat-option

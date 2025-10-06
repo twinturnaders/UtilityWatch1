@@ -129,16 +129,16 @@ export class RateInputComponent {
 
   isChecked = true;
 
-  onToggleOtherTown(checked: boolean): void {
-    if (checked) {
-      this.townCtrl.setValue('');
-      this.form.patchValue({ municipalityName: null, municipalityId: null });
-      this.isChecked = true;
-    } else {
-      this.form.patchValue({ otherTownName: null });
-    }
-    this.form.updateValueAndValidity();
-  }
+  // onToggleOtherTown(checked: boolean): void {
+  //   if (checked) {
+  //     this.townCtrl.setValue('');
+  //     this.form.patchValue({ municipalityName: null, municipalityId: null });
+  //     this.isChecked = true;
+  //   } else {
+  //     this.form.patchValue({ otherTownName: null });
+  //   }
+  //   this.form.updateValueAndValidity();
+  // }
 
 
 
