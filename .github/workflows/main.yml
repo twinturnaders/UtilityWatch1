@@ -45,6 +45,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest # Run this job on the latest Ubuntu version
+    needs: build-and-push
 
     steps:
       - name: Checkout
