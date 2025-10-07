@@ -32,15 +32,32 @@
         <mat-checkbox
           class="mat-box"
           formControlName="useOtherTown"
-          [checked]="isChecked"
+          (change)="onToggleOtherTown($event.checked)"
         >
-          Town/City Name
+          Town not listed? Use “Other”
         </mat-checkbox>
+        <ng-container *ngIf="isChecked">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Other town name</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="otherTownName"
+              placeholder="e.g., Unincorporated Area near XYZ"
+            />
+            <mat-hint>Enter at least 2 characters.</mat-hint>
+            <mat-error *ngIf="form.errors?.['otherTownRequired'] && (form.touched || form.dirty)">
+              Please enter the town name.
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+        <!-- Pick from list -->
         <ng-container *ngIf="!isChecked">
-          <ng-container *ngIf="allTowns$ | async as towns" style="border: 4px #0b1020;">
+          <ng-container *ngIf="allTowns$ | async as towns">
             <mat-form-field class="w-full">
               <mat-label>Town</mat-label>
               <input
+                matInput
                 type="text"
                 [formControl]="townCtrl"
                 [matAutocomplete]="auto"
@@ -53,6 +70,7 @@
 
               <mat-autocomplete
                 #auto="matAutocomplete"
+                autoActiveFirstOption
                 (optionSelected)="onTownPicked($event, towns)"
               >
                 <mat-option
@@ -70,22 +88,6 @@
               </mat-error>
             </mat-form-field>
           </ng-container>
-        <ng-container *ngIf="isChecked">
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Other town name</mat-label>
-            <input
-              type="text"
-              formControlName="otherTownName"
-              placeholder="e.g., Unincorporated Area near XYZ"
-            />
-            <mat-hint>Enter at least 2 characters.</mat-hint>
-            <mat-error *ngIf="form.errors?.['otherTownRequired'] && (form.touched || form.dirty)">
-              Please enter the town name.
-            </mat-error>
-          </mat-form-field>
-        </ng-container>
-        <!-- Pick from list -->
-
         </ng-container>
 
         <!-- Other town -->
