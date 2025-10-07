@@ -74,6 +74,7 @@
                 (optionSelected)="onTownPicked($event, towns)"
               >
                 <mat-option
+                  style="background-color: white"
                   *ngFor="let t of (filteredTowns$ | async) || []"
                   [value]="t.name"
                   class="option-highlight"
