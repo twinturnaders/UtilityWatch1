@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   error: string | null = null;
   fieldTextType: boolean = false;
   form!: FormGroup;
+  showEyeSlash: boolean = true;
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
 
   ngOnInit() {
