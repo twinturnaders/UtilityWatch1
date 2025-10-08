@@ -70,18 +70,15 @@
 
               <mat-autocomplete
                 #auto="matAutocomplete"
+                class="uw-auto-panel"
                 autoActiveFirstOption
                 (optionSelected)="onTownPicked($event, towns)"
               >
-                <mat-option
-                  style="background-color: white"
-                  *ngFor="let t of (filteredTowns$ | async) || []"
-                  [value]="t.name"
-                  class="option-highlight"
-                >
+                <mat-option *ngFor="let t of (filteredTowns$ | async) || []" [value]="t.name">
                   {{ t.name }}
                 </mat-option>
               </mat-autocomplete>
+
 
               <mat-hint>Case-insensitive search.</mat-hint>
               <mat-error *ngIf="form.errors?.['townFromListRequired'] && (form.touched || form.dirty)">

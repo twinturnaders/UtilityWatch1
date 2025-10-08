@@ -1,1 +1,27 @@
+.cdk-overlay-container .uw-auto-panel {
+  background: #fff !important;
+  border: 1px solid #e3e6e8;
+  box-shadow: 0 10px 28px rgba(0,0,0,.10);
+  color: #1b1e1b;
+}
 
+/* Option rows (MDC classes in Angular Material 15+) */
+.cdk-overlay-container .uw-auto-panel .mat-mdc-option {
+  /* ensure readable text over white background */
+  color: #1b1e1b;
+}
+
+/* Hover and selected styles */
+.cdk-overlay-container .uw-auto-panel .mat-mdc-option:hover {
+  background: #f5f9ff !important;
+}
+.cdk-overlay-container .uw-auto-panel .mat-mdc-option.mdc-list-item--selected {
+  background: var(--reseda-green) !important;
+  color: #fff !important;
+}
+/* Selected text node inside the option */
+.cdk-overlay-container .uw-auto-panel
+.mat-mdc-option.mdc-list-item--selected
+.mdc-list-item__primary-text {
+  color: #fff !important;
+}
