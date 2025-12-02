@@ -40,6 +40,7 @@
           <mat-form-field class="w-full">
             <mat-label>Other town name</mat-label>
             <input
+
               matInput
               type="text"
               formControlName="otherTownName"
@@ -74,7 +75,10 @@
                 autoActiveFirstOption
                 (optionSelected)="onTownPicked($event, towns)"
               >
-                <mat-option [ngClass]="t.name" *ngFor="let t of (filteredTowns$ | async) || []" [value]="t.name">
+                <mat-option  style="background-color: white"
+                             *ngFor="let t of (filteredTowns$ | async) || []"
+                             [value]="t.name"
+                             class="option-highlight">
                   {{ t.name }}
                 </mat-option>
               </mat-autocomplete>
