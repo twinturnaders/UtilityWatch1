@@ -74,7 +74,7 @@
                 autoActiveFirstOption
                 (optionSelected)="onTownPicked($event, towns)"
               >
-                <mat-option *ngFor="let t of (filteredTowns$ | async) || []" [value]="t.name">
+                <mat-option [ngClass]="t.name" *ngFor="let t of (filteredTowns$ | async) || []" [value]="t.name">
                   {{ t.name }}
                 </mat-option>
               </mat-autocomplete>

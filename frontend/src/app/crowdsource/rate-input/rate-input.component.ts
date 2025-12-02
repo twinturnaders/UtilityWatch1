@@ -298,4 +298,6 @@ export class RateInputComponent {
   get preview(): unknown {
     return { ...this.form.getRawValue() };
   }
+
+  protected readonly name = name;
 }
