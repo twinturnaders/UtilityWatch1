@@ -37,13 +37,13 @@
           Town not listed? Use “Other”
         </mat-checkbox>
         <ng-container *ngIf="isChecked">
-          <mat-form-field appearance="outline" class="w-full">
+          <mat-form-field class="w-full">
             <mat-label>Other town name</mat-label>
             <input
               matInput
               type="text"
               formControlName="otherTownName"
-              placeholder="e.g., Unincorporated Area near XYZ"
+              placeholder="Your Town's Name"
             />
             <mat-hint>Enter at least 2 characters.</mat-hint>
             <mat-error *ngIf="form.errors?.['otherTownRequired'] && (form.touched || form.dirty)">
