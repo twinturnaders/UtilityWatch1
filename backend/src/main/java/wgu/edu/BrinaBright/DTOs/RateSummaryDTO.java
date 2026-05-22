@@ -29,6 +29,10 @@ public class RateSummaryDTO {
     private BigDecimal estimatedSewerCharge;
     private Integer confidenceRating;
 
+    /** True when rate data comes from the average_rates table, not actual tariffs. */
+    private Boolean isAverageOnly;
+    private AverageRateDTO averageRates;
+
 
     public BigDecimal getEstTotal() {
         if (estimatedWaterCharge == null && estimatedSewerCharge == null) return null;

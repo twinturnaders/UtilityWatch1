@@ -3,6 +3,7 @@ package wgu.edu.BrinaBright.Services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import wgu.edu.BrinaBright.DTOs.*;
+import wgu.edu.BrinaBright.Entities.AverageRate;
 import wgu.edu.BrinaBright.Entities.Municipality;
 import wgu.edu.BrinaBright.Entities.SewerRate;
 import wgu.edu.BrinaBright.Entities.SewerRateVariance;
@@ -80,6 +81,20 @@ public class MunicipalityService {
     }
 
     private RateSummaryDTO mapToRateSummary(Municipality m, Integer usageGal) {
+        AverageRate avg = m.getAverageRate();
+        boolean isAverageOnly = avg != null && m.getWaterRates().isEmpty() && m.getSewerRates().isEmpty();
+
+        if (isAverageOnly) {
+            return RateSummaryDTO.builder()
+                    .name(m.getName())
+                    .county(m.getCounty())
+                    .state(m.getState())
+                    .isAverageOnly(true)
+                    .averageRates(AverageRateDTO.from(avg))
+                    .confidenceRating(m.getConfidenceRating() == null ? 0 : m.getConfidenceRating().trim().length())
+                    .build();
+        }
+
         WaterRate water = m.getWaterRates().stream().findFirst().orElse(null);
 
         List<FeeDTO> fees = m.getFees().stream()
@@ -95,9 +110,6 @@ public class MunicipalityService {
                 ? rateCalculatorService.calculateSewerCharge(m, usageGal)
                 : null;
 
-        BigDecimal estTotal = (estWater != null || estSewer != null)
-                ? estSewer.add(estWater)
-                : null;
         return RateSummaryDTO.builder()
                 .name(m.getName())
                 .county(m.getCounty())
@@ -113,9 +125,6 @@ public class MunicipalityService {
                 .estimatedSewerCharge(estSewer)
                 .confidenceRating(m.getConfidenceRating() == null ? 0 : m.getConfidenceRating().trim().length())
                 .build();
-
-
-
     }
 
 

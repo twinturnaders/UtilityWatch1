@@ -55,4 +55,7 @@ public class Municipality {
     @OneToMany(mappedBy = "municipality", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @OrderBy(" effectiveStart ASC")
     private List<SewerRateVariance> sewerRateVariances = new ArrayList<>();
+
+    @OneToOne(mappedBy = "municipality", fetch = FetchType.LAZY)
+    private AverageRate averageRate;
 }
