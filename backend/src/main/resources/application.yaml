@@ -1,11 +1,11 @@
 server:
-  port: ${SERVER_PORT:8080}
+  port: 8080
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://db:5432/capstone}
-    username: ${SPRING_DATASOURCE_USERNAME:capuser}
-    password: ${SPRING_DATASOURCE_PASSWORD:cappass}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/UtilityWatch}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:validate}
+      ddl-auto: validate
